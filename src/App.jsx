@@ -1,28 +1,31 @@
-import { useState } from 'react'
+import React, { useRef } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import MenuSection from './components/MenuSection';
+import Testimonials from './components/Testimonials';
+import OrderForm from './components/OrderForm';
+import Footer from './components/Footer';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const orderRef = useRef(null);
+
+  const scrollToOrder = () => {
+    const el = document.getElementById('order');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-yellow-50">
+      <Navbar onOrderClick={scrollToOrder} />
+      <main>
+        <Hero onOrderClick={scrollToOrder} />
+        <MenuSection onOrderClick={scrollToOrder} />
+        <Testimonials />
+        <OrderForm ref={orderRef} />
+      </main>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
